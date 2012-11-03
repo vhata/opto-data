@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        {% block charset %}<meta charset="utf-8">{% endblock %}
+        <title>{% block page_title %}TITLE HERE{% endblock %}</title>
+        {% block page_meta %}
+        <meta name="description" content="{% block meta_description %}DESCRIPTION HERE{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}KEYWORDS HERE{% endblock %}">
+        {% endblock %}
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {% load compress %}
+        {% compress css %}
+        {% block local_page_css %}
+        <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/opto.css" type="text/css" media="screen">
+        {% endblock %}
+        {% endcompress %}
+        {% block additional_css %}{% endblock %}
+        <link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.ico">
+        <link rel="apple-touch-icon" href="{{STATIC_URL}}img/apple-touch-icon.png" />
+    </head>
+    <body>
+        {% block page_body %}{% endblock %}
+
+        {% block page_scripts %}
+            {% block external_page_scripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery{% if not DEBUG %}.min{% endif %}.js" type="text/javascript"></script>
+            {% endblock %}
+
+            {% block local_page_scripts %}
+            {% compress js %}
+            {% endcompress %}
+            {% endblock %}
+
+            {% block inline_page_scripts %}{% endblock %}
+
+        {% endblock %}
+    </body>
+</html>
