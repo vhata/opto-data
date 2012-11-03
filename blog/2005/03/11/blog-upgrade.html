@@ -1,0 +1,48 @@
+--- 
+title: Blog Upgrade
+date: 2005-03-11 08:37:19
+--- 
+<p>
+Sick of getting trackback and comment spam on this blog, I updated the spamblock plugin, which then broke comments, because it was designed for <a href="http://www.s9y.org/">Serendipity</a> version 0.8.  So I decided to upgrade my blog.  Having already helped <a href="http://singe.rucus.net/">Dom</a> fix his <a href="http://singe.rucus.net/blog/archives/353-Phew,-Backup-Lessons.html">disastrous upgrade mistake</a>, I was much wiser, and able to do it flawlessly.
+</p>
+<p>
+Hah, whatever.  I porned it horrendously.  Not just the blog, but my whole page. Firstly, Serendipity's upgrade instructions are abominably vague, but I gave it various bashes, and got various errors and failures.  Unlike singe, I <b>had</b> backed up my database properly, although even this gave me problems, since I discovered that my databases are over 100megs in size, storing every web visit I've had in like... years, and every URL pasted on IRC in months, and so on.  This meant that when I tried to edit the SQL dump, both <a href="http://www.vim.org/">vim</a> and <a href="http://sourceforge.net/projects/joe-editor/">joe</a> vomitted and passed out.  Finally I had some SQL which returned my database back to its pre-upgrade state, and I had a backup of my blog directory in its pre-upgrade state, which I copied back into my web directory.
+</p>
+<p>
+Now, perhaps somebody can explain this to me.  I fully intend to go and look at the source for <a href="http://rucus.ru.ac.za/cgi-bin/man.cgi?topic=cp">cp(1)</a> and at <a href="http://rucus.ru.ac.za/cgi-bin/man.cgi?topic=stat&section=2">stat(2)</a>, but why does this happen?
+</p>
+<pre>
+<b>~/tmp/bar$</b> ls ../foo
+one     subdir/ three   two
+
+<b>~/tmp/bar$</b> cp -R ../foo .
+<b>~/tmp/bar$</b> ls
+foo/
+<b>~/tmp/bar$</b> ls -R
+foo/
+./foo:
+one     subdir/ three   two
+./foo/subdir:
+
+<b>~/tmp/bar$</b> rm -rf foo
+
+<b>~/tmp/bar$</b> cp -R ../foo/ .
+<b>~/tmp/bar$</b> ls
+one     subdir/ three   two
+<b>~/tmp/bar$</b> ls -R
+one     subdir/ three   two
+./subdir:
+</pre>
+<p>
+Simply appending a "/" to the end of the directory you are copying (which happens automatically with tab completion) means that you copy everything <b>in</b> the directory, instead of the directory itself.  What's that all about?  Anyway, the upshot of this little "quirk" is that I copied my blog into my web directory, overwriting my .htaccess and my index.php (fortunately there were no other name clashes, but it was a bitch to have to try to clean up, yay for 'ls -ltr').  I then had to grab my .htaccess and index.php from rucus's backups. When I did Dom's database restore from backups, it was just grabbing them from server's /var, which is a 4.8 gig partition.  My webstuff was from shell's /home, which is a 60 gig partition, and takes <em>slightly</em> longer to restore from.  What I'm saying is, it was a bitch.
+</p>
+<p>
+Anyway, I eventually got everything sorted, the upgrade seems to have gone smoothly, although it broke the theming on my homepage.  Serves me right, though:
+</p>
+<blockquote>
+<b>&lt;optika&gt;</b> D-Arb: skins are for animals.<br />
+<b>&lt;D-Arb&gt;</b> optika: skins are for keeping water in<br />
+<b>&lt;optika&gt;</b> that too.<br />
+<b>&lt;singe&gt;</b> D-Arb: and blood<br />
+<b>&lt;Vhata&gt;</b> singe: that's crazy talk<br />
+</blockquote>

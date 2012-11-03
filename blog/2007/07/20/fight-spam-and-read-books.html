@@ -1,0 +1,30 @@
+--- 
+title: Fight spam and read books
+date: 2007-07-20 15:18:52
+--- 
+<p>
+Well, I fixed my <a href="/blog/2007/06/10/drupal-anti-spam">spam problems</a>, it seems.  I am now using <a href="http://en.wikipedia.org/wiki/CAPTCHA">CAPTCHAs</a> on blog comments. A CAPTCHA is a way of checking whether the person accessing a web page is a "real" person by asking them to do something which computers find it hard to do.  Traditionally, this has involved asking them to type out a word in a picture, because computers have always had trouble with image processing.  However, software has improved at reading images, and this approach has started failing.  Some other ways to determine whether the user is a real person have been suggested:
+<blockquote>
+In order to prove your authenticity, please provide the answer to the following formula:
+<img src="/files/2007/07/20/formula.jpg" alt="formula" title="formula" />
+</blockquote>
+And then there's:
+</p>
+<p style="text-align: center">
+<a href="http://xkcd.com/c233.html">
+<img src="http://imgs.xkcd.com/comics/a_new_captcha_approach.png" alt="a new captcha approach" title="a new captcha approach" />
+</a>
+</p>
+<p>
+I am using neither of these methods, unfortunately.  <a href="http://whijo.net/">Brad</a> pointed out <a href="http://recaptcha.net/">ReCAPTCHA</a> to me, which is now the <a href="http://en.wikipedia.org/wiki/ReCAPTCHA">recommended implementation</a> of the CAPTCHA system.  As described <a href="http://recaptcha.net/learnmore.html">on their page</a>, people perform word recognition all the time when they answer CAPTCHAs, and ReCAPTCHA uses this to assist in scanning the world's library archives into digital format.  When some pages of some books are scanned in, the software can't always work out what the words are supposed to be, so these words get used in CAPTCHAs, and we let the people of the world work out what they are.  If you're wondering how unknown words can be used in a CAPTCHA, go and read the link above.
+</p>
+<p>
+Anyway, the point is, we're helping to digitize humanity's knowledge, and fighting spam at the same time. It's like <a href=" http://nigoro.jp/game/rosecamellia/rosecamellia.php">hitting two birds</a> with one stone.  I notice that Facebook also uses ReCAPTCHA in its sign-up form.  I think it's awesome.
+</p>
+<p>
+Please let me know if there are any issues using the new CAPTCHAs when submitting comments?
+</p>
+<p>
+<b>Update:</b> 
+<a href="http://www.russellheimlich.com/blog/did-wikipedia-just-insult-me/">More captcha amusements</a> and <a href="http://www.tonsai.de/blog-english/2007/craziest-captchas-on-the-web/">yet more</a>.
+</p>

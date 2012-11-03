@@ -1,0 +1,25 @@
+--- 
+title: Juke - the final touches
+date: 2004-11-18 17:24:04
+--- 
+<p>
+I've finally finished the Juke system completely. The Phone client, the GTK client and the Web based client all authenticate to the Asterisk machine, and they all control the music being played over the phone.
+</p>
+<p>
+Things I've done what are clever:
+<ol>
+<li>Nevow web servers have their own authentication, as you can imagine, but I didn't want to duplicate the authentication checker. This wouldn't be practical or extensible, anyway. I therefore had to write a "pass through" authentication checker, one that won't grant authentication until it has itself authenticated with the final authority.  It is easy enough to understand now that I've written it, but it took a bit of thought to get the hang of.</li>
+<li>The Phone client gets its user ID from the caller ID number. This is already kind of verified by Asterisk, so there is no real point in getting it again. Not that that sort of thing hasn't been done - voicemail and outside calls both require ID/PIN number to be entered - this would not be fun, or interesting. What is fun and interesting is creating a method of authentication that gets the same sort of Avatar as the other methods, but doesn't require a password.  I could have kludged it by passing "auto_7510" as the ID instead of "7510", and not checking the password in my Portal if the ID began with "auto_", but that would suck, and it would also mean that the GTK/Web clients would be prone to attack by people putting "auto_foo" as their usernames.<br />
+<b>twisted.cred</b> has a lovely authentication system that allows you to associate different checkers with different authentication interfaces, so I should be able to say that the Phone client uses the "AutoAuth" interface, and write a checker that didn't check the password. However, Perspective Broker's auth system is a little restricted, and doesn't allow extra interfaces - it only handles IUsernamePassword and IUsernameHashedPassword. What I did in the end was create a remote method call named "loginAuto" (remote_* calls are unauthenticated, like XML-RPC procedure calls. perspective_* calls are the ones that need authentication first), which took a username, and did some funky stuff to duplicate the normal login process.  This involved subclassing Perspective Broker's Portal class. To quote everybody from <i>#twisted</i>: "You should never subclass Portal."  Well, I did, and it worked great.</li>
+<li>I won't get too deep into the trials and tribulations I had with the phone client itself.
+  <ul>
+    <li>I had problems involving mpg123's super-fast decoding of mp3 data: It decoded it all and slammed it across the connection, which meant that by the time the user had pressed "pause", it was too late - all the data was decoded and queued to be streamed.  Thus, I had to keep the connection from mpg123 blocked almost 100% of the time, only unblocking it for very little bits when the playback had reached the same stage that the decoding had reached.</li>
+    <li>I had problems with mpg123's retarded decision to send status data to STDOUT, even though it was already sending its decoded PCM data to STDOUT.  I was using a FIFO at first - telling mpg123 to send its PCM to the FIFO, and reading from the FIFO (effectively creating a third output stream, since mpg123 was selfishly using STDOUT and STDERR already), but the silly old Twisted people never got around to implementing a FIFO reader.  A solution would be to open a process that just cat'd out the FIFO, but that was an awful kludge.  In the end, I just patched mpg123 to send all status data to STDERR, where it should have been going in the first place, and I just trap the STDOUT for PCM data.</li>
+  </ul></li>
+<li>The GTK client was probably the most simple - I just needed to learn GTK first. It's actually a lovely, easy system. I won't say I wasn't irritated by a few decisions they'd made (what the hell is all this about packing boxes for layout?), but I do remember from my own very brief forays into toolkits that certain things need to be slightly odd.</li>
+<li>The rest of the Nevow system was also fairly easy. I've probably done things in a slightly non-orthodox way, but Nevow docs are all but non-existent, and I had to learn from examples and from reading the blasted source.  Those crazy Twisted bastards are seriously insane. You know that they generate the TCPClient, TCPServer, UDPClient, etc, etc, classes on the fly, all done in about five lines?  Who does that.  Anyway, I read through it, and my system all works, now.</li>
+</ol>
+</p>
+<p>
+Forthcoming attractions: an architecture diagram.  This is actually substantially more complicated than I realised.  Should be fun.
+</p>

@@ -1,0 +1,27 @@
+--- 
+title: Connecting via MTN GPRS
+date: 2006-02-06 22:57:18
+--- 
+<p>
+<strong>Update:</strong> I AM NOT A GPRS EXPERT.  I DO NOT WORK FOR MTN.  I am just a guy who fiddled with his phone and managed to get it connected.  Please, please, please stop leaving comments on this post asking me for help and requesting that I set your phone up for you.  I know nothing about your phone.  Please.
+</p>
+<p>
+Now, dear Internet, because you are so mindless and inane that you can't tell the difference between one text box and another, I have disabled comments on this post.  Now sod off and use your brain.
+</p>
+<p><strong>Original post below</strong></p>
+<hr/>
+<p>
+One of the first things I did with my <a href="http://vhata.rucus.net/blog/archives/114-Be-a-Saffie,-too!.html">shiny new South African ID</a> was to go and apply for an MTN contract.  I spend a pantload of money on airtime, and it just makes sense for me to get a contract.  A huge bonus, of course, is the nice phone I get with the contract.  I chose the <a href="http://www.mtn.co.za/?pid=5847">MyCall 100</a> contract, which gives me 100 free minutes, and 15 SMSes, for R59 per month (and I can get a 200 SMS bundle for an extra R45).  And with this contract, I got the <a href="http://www.europe.nokia.com/nokia/0,,69498,00.html">Nokia 6230i</a>.  It's a very pretty phone, and it can do lots of clever things.  It has a camera, and I can send MMSes, and I can play nice music and I have all sorts of lovely toys.
+</p>
+<p>
+The thing I really wanted, however, because I'm an incorrigible geek, was GPRS connectivity from my phone. I want to be able to whip my phone out of my pocket and google for something (or better yet, ask Spinach for something). I want to be able to ssh in and read my mail, or jump on IRC and find out if Sam is around.  The web bit worked with minimal set up, but I could not connect using any of the applications I downloaded (<a href="http://xk72.com/wap">MidPSSH</a>, <a href="http://jmirc.sf.net/jmIrc.jad">jmIrc</a>, and <a href="http://thesverre.servebeer.com/wap/WLIrc.jad">WLIrc</a>). I have managed to work out that this is because MTN sends me WAP settings, MMS settings, email settings, and Streaming settings (?), but not plain old GPRS settings.
+</p>
+<p>
+Here is my solution, for the Nokia 6230i:  In the "settings" menu, under "configuration",  I went to "Personal configuration settings". I then chose to add a new setting, of type "Access Point", which I gave the name "MyMTN". Under "Access point settings", I chose GPRS as the data bearer, and then configured the bearer settings. I set the access point name to "myMTN", and used normal authentication.  Apparently you can put in a username and password, but they are not required. I experimented with using "mtnwap", which sort of worked, but broke web access.  Leaving them blank works best for me.  Finally, back in the "configuration" menu, I set my new "MyMTN" setting as the preferred access point.
+</p>
+<p>
+Now, when I connect with one of my applications, it selects MyMTN as the access point, and then asks me for authentication details.  I just press "go" for both username and password (leaving them blank), and it works fine. If anybody knows how to stop it asking me for them, let me know, although I'm not too fussed.
+</p>
+<p>
+Anyway, now I can geek away to my heart's content, and run up a huge contract bill.
+</p>

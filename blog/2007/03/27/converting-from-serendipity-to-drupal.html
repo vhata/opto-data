@@ -1,0 +1,58 @@
+--- 
+title: Converting from Serendipity to Drupal
+date: 2007-03-27 15:53:50
+--- 
+<p>
+My old blog, on vhata.rucus.net, was running <a href="http://www.s9y.org/">Serendipity</a>, but I've switched to using <a href="http://drupal.org">Drupal</a> for everything on this site, vhata.net.  Apart from being written in <a href="http://www.google.com/search?q=php%20sucks">PHP</a>, which is unfortunate, Drupal seems to be a fairly decent piece of software - pretty, easy to use, and well written.  If I needed persuading of this fact, I would have been convinced by how easy it turned out to be to migrate my blog entries from Serendipity to Drupal.
+</p>
+<p>
+Since I started setting up my omnia.za.net hosting (maybe I should blog about that a bit later?), I've been using Postgres as much as possible, where there's a choice.  I am using it behind <a href="http://url.omnia.za.net/">my shorl generator</a>, my <a href="http://quote.omnia.za.net/">quote database</a>, and behind the various drupal sites on this machine, including this blog.  The database that stored my serendipity entries on rucus, however, was a MySQL database.
+</p>
+<p>
+It was easy enough to extract the information that I wanted to keep from the serendipity database:
+<pre>
+   select id, title, timestamp, concat(body, extended) from serendipity_entries;
+</pre>
+I wasn't that interested in trying to keep the comments, categories, and so on - I have retained the database, and I will go through the comments later and update various entries to include the comments, I think.
+</p>
+<p>
+After that, the question was how to insert this data into Drupal.  At first I thought of doing it manually:  I created a test blog entry, with pg_dumps before and after, so I could compare the states of the database, and how it changed when a blog entry was created.  It seemed simple enough, but the whole idea didn't sit right with me.  So I had a look at the PHP code behind Drupal, and as I've said, it's incredibly simple and elegantly written.
+</p>
+<p>
+It turns out, there's a node_save() function that you can call, passing it a node object (which needs properties such as 'title', 'body', etc), and it will update everything for you.  It was that simple.  All I needed was to write some PHP code that did the MySQL selection above from serendipity, created a node with the right properties, and saved it.  This code would, of course, need to run within the Drupal environment so that it had access to the node_save() function, and was connected to the right database.  This was also trivial to achieve: <a href="http://drupal.org/node/82920">There is a nice tutoral on creating Drupal modules</a> that made it easy.
+</p>
+<p>
+I pre-created a table called 'blogdata' to contain the data I wanted:
+<pre>
+CREATE TABLE blogdata (
+  id int(11),
+  title varchar(200),
+  timestamp int(10),
+  body text,
+  done int(3) default '0'
+);
+</pre>
+And then populated it:
+<pre>
+insert into blogdata select id, title, timestamp, concat(body, extended), 0 from serendipity_entries;
+</pre>
+The relevant part of my Drupal module (which I could have actually stuck into any existing Drupal module in order for it to be run) was as follows:
+<pre>
+$q = mysql_query("select * from blogdata where done=0 order by timestamp asc");
+while($f = mysql_fetch_assoc($q)) {
+   $newent = array('created' =&gt; $f[`timestamp`], 'title' =&gt; utf8_encode($f["title"]), 'body' =&gt; utf8_encode($f["body"]),
+      'teaser' =&gt; utf8_encode($f["body"]), 'format' =&gt; 3, 'uid' =&gt; 1, 'type' =&gt; 'blog', 'status' =&gt; 1, "comment" =&gt; 2,
+      'promote' =&gt; 0, 'sticky' =&gt; 0);
+   $newento = (object)$newent;
+   node_save($newento);
+}
+$q = mysql_query("update blogdata set done=1");
+</pre>
+I did actually have some issues at first because my data was encoded in ISO-8859-1/latin1, and Postgres was expecting UTF-8 data, but as you can see, I call the PHP utf8_encode() function to get around this.  Many thanks to <a href="http://www.serendipity.org.za/bje/about.html">bje</a> (whose domain is ironically called "serendipity" ;-) for getting my mind straight when I was being kak about this.
+</p>
+<p>
+And that was it.  My blog entries were imported perfectly.  I still need to go through a few of them and fix entries that still hard-link to rucus, but that shouldn't take too long.
+</p>
+<p>
+The only gripe with Drupal at first was the horrible URLs it created:  "/node/124" sort of thing.  However, with the nifty <a href="http://drupal.org/node/17345">Pathauto</a> module, those are a thing of the past.
+</p>

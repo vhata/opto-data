@@ -1,0 +1,41 @@
+--- 
+title: Block lists for the mule
+date: 2004-08-19 14:09:54
+--- 
+<p>If you don't fancy huge corporations sneaking around your machine sniffing for stuff they can sue you for, you need to block them from doing it.</p>
+<p>
+The <a href="http://www.riaa.com/">RIAA<a/> and the <a href="http://www.mpaa.org/">MPAA</a> and their little friends are scanning P2P networks for illegal versions of their copyright material.  While this is all <a href="http://www.lessig.org/blog/archives/001988.shtml">well</a> and <a href="http://cyber.law.harvard.edu/digitalmedia/lessig.htm">good</a>, I'm sure they're entitled to protect what they <a href="http://creativecommons.org/">own</a>, but I don't fancy them sniffing around my computer.  It's a bit of a violation of privacy, what?
+</p>
+
+<p>P2P networks are not all about pirating music and suchlike. Recently, Windows XP Service Pack 2 was distributed with huge success over the <a href="http://bitconjurer.org/BitTorrent/">BitTorrent network</a>.  However, in a great show of how much they care about their users <a href="http://news.com.com/2100-1032_3-5309197.html">Microsoft shut</a> it <a href="http://www.boingboing.net/2004/08/12/xp_service_pack_torr.html">down</a>.
+</p>
+<p>
+Herewith, the HOWTO for implementing blocklists for <a href="http://www.amule.org/">various</a> <a href="http://www.emule-project.net/">mules</a> <a href="http://www.xmule.ws/">and</a> <a href="http://www.edonkey2000.com/">donkeys</a>.
+</p>
+<p>There is a fairly detailed, but slightly out of date, explanation on the <a href="http://forum.emule-project.net/index.php?showtopic=10128">EMule Project homepage</a> on what to do, and <a href="http://www.bluetack.co.uk/">Bluetack</a> have a lot of resources, but it breaks down like so:</p>
+<p>For Windows, method 1:
+<ol>
+<li>Download and install the <a href="http://www.bluetack.co.uk/modules.php?name=Downloads&d_op=viewdownload&cid=4">Bluetack Blocklist Manager</a>. (You will need <a href="http://www.win-rar.com/">something that will open RAR files</a>.)</li>
+<li>Configure it.  Go to <i>Options</i>, and then to <i>Sources</i>, and choose the lists of sources that you want to use to block - the recommended ones have stars next to them.  You will also need to tell it where to store the lists it creates.  Go to <i>App Locations</i>, and fill in the boxes. If you're using EMule, you need to tell it to store it in <b>ipfilter.dat</b> in the directory where you installed EMule (probably C:\Program Files\EMule, innit). You can fiddle other stuff, if you like, according to <a href="http://www.bluetack.co.uk/blmhelp/index.html">these odd instructions</a> (See under <i>How To</i>, <i>Set up the BLM</i>). This is not all that necessary, however. You can fiddle.</li>
+<li>Click on <i>Check Sources</i>.  This should grab all your sources.  I had some proxy problems, which sort of went away after a while.  Sorry, can't help there.  There's nowhere to define what proxy to use.  I think it gets the values from Internet Explorer, so make sure that that is set up properly. Have a look through the <a href="http://www.bluetack.co.uk/modules.php?name=FAQ&myfaq=yes&id_cat=2&categories=Blocklist+Manager+FAQ">Blocklist Manager FAQ</a> if you have problems.  One thing that is useful to know is, if the Blocklist Manager just hangs when you press <i>Check Sources</i>, then click on the <i>Options</i> button, click <i>OK</i> straight away, and then click on <i>Check Sources</i> again, and it should work.</li>
+<li>Clear the cache (<i>Edit</i> menu -&gt; <i>Clear Cache</i>), and then click on <i>Download Blacklists</i>.  This will download them all.</li>
+<li>Now you need to export the lists to your apps. Go to the <i>Export</i> menu, and find the app you want to export it to, and click on it.  If you're using EMule, it's under <i>P2P</i>.  Now load up EMule, and it should have the new blocklist.  I did find that EMule didn't automatically load <b>ipfilter.dat</b>. To make sure, go to <i>Preferences</i>, then to the <i>Security tab</i>, and click on <i>Reload</i> in the <i>"IP Filter"</i> box.</li>
+<li>You're done.</li>
+</ol>
+<b>Note: You can apparently use <a href="http://www.winehq.com/">WinE</a> to emulate the Blocklist Manager in Linux. Even if you can't, you can get somebody with a Windows Box to do it for you, export the list to some file, and copy the file to your Linux machine.  XMule and AMule automatically read the <b>ipfilter.dat</b> files in your <i>~/.xMule</i> or <i>~/.aMule</i> directories.</b>
+</p>
+<p>For Windows/Linux, method 2:
+<ol>
+<li>Go to the <a href="http://www.bluetack.co.uk/modules.php?name=NukeWrap&page=http://www.bluetack.co.uk/converter/index.php">Bluetack Blacklist Converter</a>.</li>
+<li>Select <i>Peer Guardian plain text</i> as your source format.</li>
+<li>Select the output format you want.  You'll notice some rather nice ones like <i>iptables bash script</i>, but you probably just want <i>eDonkey (eMule, cDonkey)</i>.</li>
+<li>Fiddle with any other options you feel like</li>
+<li>Go to the source lists, select the ones you want, or paste in your own, get them, download them, etc.</li>
+<li>Click on Convert</li>
+<li>Get the output from the Output tab, and place it in the <b>ipfilter.dat</b> file (or a bash script, or whatever you've done), and go for it, as above.</li>
+</ol>
+</p>
+<p><b>Important:</b> You <i>need</i> to update these lists often.  IP addresses change, baddies come and go.  Blocklists that worked three months ago may not be sufficient any more.  Keep up to date with your blocklists, as with everything else</p>
+
+<p>
+A final note:  Using the above method will stop the arrogant American corporations from sticking their noses into your machine, where they don't belong, but you should still be aware of what copyright is, what the law of the land is, and what the law of your <a href="http://www.ru.ac.za/aup">service provider</a> is.</p>

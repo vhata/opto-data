@@ -1,0 +1,23 @@
+--- 
+title: app_juke.c - why
+date: 2004-10-28 23:04:39
+--- 
+<p>Having floundered for some time, I have managed to obtain some focus for my thesis.  I think the big problem was that I didn't feel like I had enough to say. I wrote the long paper for <a href="http://www.astricon.net/">Astricon</a>, but that's all I really had to say. Sure, I could talk about some other ways and means to communicate with a PBX, and some services that I've written, but they were all small things, and not really thesis-flesh.
+</p>
+<p>There are three main ways to "do stuff" with Asterisk:  The <b>Manager API</b> (a sort of command-line interface), <b>AGI</b> (little scripts that get run when certain extensions are dialled), and <b>Applications</b> (modules written in C that link to the Asterisk libraries, and are dynamically loaded into Asterisk itself.  Jason's iLanga system allows a fourth way, to a certain extent: you can modify the database entries, which affect the way his system runs.
+</p>
+<p>
+The Flash interface which I wrote up for Astricon uses the database method, and the Manager API. I've got enough there to discuss those two methods. I've written some arb AGI scripts - the weather, that sort of thing. I can discuss that at length.  However, I haven't really done anything with the Applications, and they are clearly the most versatile and powerful method of manipulating Asterisk, since they run as part of the damn program itself.
+</p>
+<p>
+At this point, one should ask why I need to cover all the methods of communicating with Asterisk. My thesis is not about communicating with Asterisk. My thesis is (mostly? I think?) about the convergence of old-style PSTN telephones and new-style next-gen network services. But I needed some services to discuss, and I needed enough of a range so I can cover all the angles - discussing seventeen services that are all basically the same isn't enough.  In addition, I needed some angle into the system that would get me out of the rut I was in, so I could start writing. I'm a philosopher by training (why did I stop Philosophy after Honours? Why did I choose the Compsci route? Why?), and need a logical structure to my writing before I can actually think about saying anything.
+</p>
+<p>
+Enter my Application: <b>app_juke.c</b>. In function, it is basically an mp3 player over the phone. You dial a number, it plays you music. You press '3', it skips to the next song. You press '5', it pauses the song, and so on.  The interesting bit is that you can go to a webpage, and edit your playlist. Or, and here's some fun, you can load up a GTK application that looks for all the world like <a href="http://www.xmms.org/">XMMS</a>, and control the music that way. Yet it's still coming out of the phone! Old-style telephones couldn't do that. Or, they could, but it took some hardware and some pretty hectic fiddling. So, here's a grand way for me to discuss how a service which can be accessed solely from old-style phones can also be extended to take advantage of the facilities a computer provides - graphical interfaces, web interfaces, extended editing, that sort of thing.
+</p>
+<p>
+In addition, now that I have an Application to go with my AGI, API and database munging, I have a neat entry to the work: I start off by describing Asterisk, and services, and suchlike, and talk about convergence, and then I say, lo, there are four ways to alter the behaviour of our system, and I will now discuss them one by one.
+</p>
+<p>
+As far as the nitty-gritty of app_juke.c, and how it does what it does, that's for another blog entry. <a href="http://www.mithrandi.za.net/">Tristan</a> and I have discussed various methods of communication, and it always comes back to <a href="http://twistedmatrix.com/products/spread">Perspective Broker</a>, damn its wonderfully intricate callback functions.  When I work out who calls whom, from where, and why, I shall blog it. I should actually have a fudge-up initial implementation by tomorrow. (I'd like to make clear that I've already got the music playing over the phone, and controllable by the keypad. It's the adding the web and GTK interfaces that I'm thinking about now.)
+</p>

@@ -1,0 +1,24 @@
+--- 
+title: Making a good web site
+date: 2004-09-12 16:48:56
+--- 
+<p>
+I've been thinking about this a lot recently.  A lot of people redesign their sites all the time. Nobody is satisfied. What makes a really good website, from a geek-design point of view?
+</p><p>
+I wrote <a href="http://vhata.net/blog/2004/07/04/new-web-layout">a while back</a> about skinning websites.  I want to expand on that, and go deeper, and get a lot more prescriptive.</p>
+<p>
+There are possibly three areas that I want to talk about:
+<ol>
+<li>Skinning of a site</li>
+<li>Standards compliancy in creating web-pages</li>
+<li>"Correctness" of content</li>
+</ol>
+</p>
+<p>
+I have already discussed the skinning of a site, although my thoughts have now gone a little deeper.  The various methods available all have repercussions on other aspects of a web-site, and these need to be addressed.  I am beginning to tend ever so slightly towards <a href="http://www.mithrandi.za.net/">Tristan's</a> point of view that implementation details (even to the point of "is this page a directory or not") should not have any visible effect whatsoever (largely influenced, I think, by his use of Nevow, which stores pages as python functions mostly), but nowhere near that extreme.  I'm not sure that pages should map one-to-one onto the filesystem, although there is definitely ease-of-maintenance potential in the filesystem that should not be discarded. I will write more on this later, when I have examined all the options.
+</p>
+<p>Standards compliancy is something every geek knows about, but I am talking about 100% runs-to-the-core standards compliancy.  I'm talking about using Unicode, and sticking to accessibility guidelines, and having meta-data, and correct CSS. But, more relevant to my "how to skin a site" topic, I want to make this standards-compliancy default in a web-site. With a few tweaks here and there, all the meta-data and so on will be put in automatically for every new page. Sure, you'll still need to know that an anchor-tag can't go inside another anchor-tag and so on, but a lot can be done for you.
+</p>
+<p>The final point overlaps somewhat with the second one.  A lot of it is covered in <a href="http://www.maxdesign.com.au/presentation/checklist.cfm">this checklist for web standards</a>, but there's more to it even than that.  An indication of what I am talking about can be gleaned from <a href="http://www.alistapart.com/articles/emen/">this rant on typesetting</a>. I want quotation marks to be used correctly (even if it means using CSS "contentbefore" and "contentafter" properties to adjust the &lt;q&gt; tag), and so on. I haven't delved deep into this topic, but I'd like to look further.  <a href="http://russell.rucus.net/">Russell</a> knows a lot more on this topic (and most of the other issues I've mentioned in this page), but I'm going to do some reading and see.
+</p>
+<p>I still need some sort of logical flow for this issue, some way to tie it all together. I'm hopefully going to start an outline soon, and then fill it in slowly as my thoughts come together.</p>

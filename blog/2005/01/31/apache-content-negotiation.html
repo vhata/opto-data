@@ -1,0 +1,35 @@
+--- 
+title: Apache Content Negotiation
+date: 2005-01-31 12:51:03
+--- 
+<p>
+This is a quick entry to demonstrate the <a
+href="http://httpd.apache.org/">Apache</a> webserver's <a
+href="http://httpd.apache.org/docs/content-negotiation.html">content
+negotiation</a>. This system allows browsers to specify their capabilities
+to the webserver, which then chooses the most suitable form of the requested
+URL for the browser. I've used this for a while (e.g. when I link to my <a href="http://vhata.rucus.net/cv">CV</a>, which is both an <a href="http://vhata.rucus.net/cv.html">HTML file</a> and a <a href="http://vhata.rucus.net/cv.pdf">PDF</a>), but I only noticed it in its full glory when I tested it as follows:
+</p>
+<p>
+In my page's <a
+href="http://httpd.apache.org/docs/howto/htaccess.html">.htaccess</a> file,
+I added the line:
+<blockquote>
+Options +MultiViews
+</blockquote>
+This turns MultiViews on, meaning that Apache will automatically try to find
+the best "view" of a URL.
+</p>
+<p>
+Next, I created a <a href="http://www.libpng.org/pub/png/">PNG</a> image,
+and a text file, one named <a
+href="http://vhata.rucus.net/content-negotiation.png"><i>content-negotiation.png</i></a>, the other
+<a href="http://vhata.rucus.net/content-negotiation.txt"><i>content-negotiation.txt</i></a> (working
+out which one I named which is left as an exercise for the reader). Next, I
+link to the root filename <a
+href="http://vhata.rucus.net/content-negotiation"><b>content-negotiation</b></a>. Browsers that are
+<a href="http://www.mozilla.org/products/firefox/">capable</a> of displaying
+the image should receive the PNG image, whereas <a
+href="http://lynx.browser.org/">text-only browsers</a> should receive the
+text file. Try it in both!
+</p>

@@ -1,0 +1,27 @@
+--- 
+title: New Masjiens
+date: 2004-11-03 18:22:03
+--- 
+<p>
+The Compsci Department is doing it's two-yearly (what the hell is the word? "bi-annual" isn't right. Dodeca-monthly?) roll-out of new PCs.  It's come at a particularly inopportune time for me, as this is the point where I'm trying to look like I'm working the most, and to have to install a new machine, and get everything copied across just so, is a bit of a break in the thought process, so to speak.
+</p>
+<p>
+At first, I installed <a href="http://www.ubuntulinux.org/">Ubuntu</a>, because I wanted to see what it was like.  And I did. And it was very like. I was really impressed. The installation was smooth, everything worked out of the box, and the configuration tools were all very graphical and easy and impressive.  Honestly, my gran could use it with ease.  And not the gran that codes MUDs in her spare time.
+</p>
+<p>
+However, it soon became apparent that if I was going to carry on doing any work, I'd have to go back to <a href="http://www.gentoo.org/">Gentoo</a>. Ubuntu didn't have identical packages, and so on, and while I'm sure I could have made everything work, given a bit of time to look around, time is not what I had. With Gentoo at least I could just emerge the same packages, copy the config files over, and be done with it.  Which is what I did.  I really plan to go back and have a proper look at Ubuntu and/or <a href="http://www.debian.org/">Debian</a>, but now is not the time.
+</p>
+<p>Having said that, even a direct switch over was not a trivial operation. Admittedly, I could have gone the <a href="http://cynic.rucus.net/">Yusuf</a> route and basically tarpiped everything from the old machine to the new machine (although that's not the way I would have done it, I probably would have taken an actual hard-drive image with dd), thus directly mirroring my machine.  But my old machine was getting messy, and there were one or two things I wanted to get Right.  For example, when I installed the new machine, I got it working with a framebuffer bootsplash, and udev/hotplug, and so on, right from scratch.  My /dev directory on my root partition has only three nodes in it! That makes me feel leet and geeky.
+</p>
+<p>
+So, having installed my new machine all nice and pretty like, I needed to get all the vital stuff across.  /home was easy enough to do, and gave me a chance to remove the gazillion user accounts that I'd dished out over the year. /etc (where good old Gentoo stores <b>all</b> of its configuration files, unlike FreeBSD, etc, which store them here, there, and everywhere (by which I mean /etc and /usr/local/etc)) was not so easy, but I rsync'd the directory hierarchy across and stored it somewhere that I could get a look at it.  Then, every time I installed a service, I could just have a squizz at my old machine's config, and make the necessary changes (diff is a wonderful tool).
+</p>
+<p>
+My only worry now is whether or not I've got everything across. Most people (you know what I mean. Most geeks, or whatever) would say that /home and /etc are the most important things, but that's not all. For example, I need /var/www/localhost, for my apache stuff. I needed to dump my mysql databases (who remembers to do that!?). I took a copy of my Gentoo World file (/var/lib/portage/world) that stores the packages I've installed. I got all my "data" (i.e. music, etc).  Have I got it all?  I damn well hope so, because I've taken my machine back now.
+</p>
+<p>
+Anyway, two days later, I think I've got a machine that's pretty much as functional as the old one (still missing, e.g. the gimp, since it hasn't been necessary in the last two days). And now I can get back to my work.
+</p>
+<p>
+<i>(A little footnote: The number of people that relied on old-nihil for music, shells, etc, was unreal. It's going to be interesting to see whether I've made the transition transparent. I copied the md5s of their passwords across, thought about keeping uids, and so on. At the most, ssh'ers will notice that the host key has changed. The majority of the rest of people (e.g. the entire journ department, which used my music share) shouldn't notice a thing.)</i>
+</p>
