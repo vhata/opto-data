@@ -1,0 +1,3 @@
+[submodule "bootswatch/bootstrap"]
+	path = bootswatch/bootstrap
+	url = https://github.com/twitter/bootstrap.git
